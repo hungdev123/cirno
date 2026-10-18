@@ -30,11 +30,11 @@ jobs:
 
     - name: Đóng gói trên Windows
       if: matrix.os == 'windows-latest'
-      run: pyinstaller --onedir --windowed --add-data "your_video.mp4;." --add-data "your_music.mp3;." main.py
+      run: pyinstaller --onedir --windowed --add-data "cirno.mp4;." --add-data "music.mp3;." main.py
 
     - name: Đóng gói trên Mac và Linux
       if: matrix.os != 'windows-latest'
-      run: pyinstaller --onedir --windowed --add-data "your_video.mp4:." --add-data "your_music.mp3:." main.py
+      run: pyinstaller --onedir --windowed --add-data "cirno.mp4:." --add-data "music.mp3:." main.py
 
     - name: Thu gom và nén file kết quả (Artifacts)
       uses: actions/upload-artifact@v4
