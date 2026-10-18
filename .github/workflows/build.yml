@@ -1,0 +1,43 @@
+name: Build Pygame App
+
+on:
+  push:
+    branches: [ "main", "master" ] # Tự động chạy khi bạn push code lên nhánh chính
+  workflow_dispatch: # Cho phép bạn bấm nút chạy thủ công trên giao diện web GitHub
+
+jobs:
+  release:
+    name: Build for ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        # Chạy đồng thời trên 3 hệ điều hành ảo của GitHub
+        os: [windows-latest, macos-latest, ubuntu-latest]
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11' # Phiên bản Python ổn định
+
+    - name: Install Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pygame opencv-python pyinstaller
+
+    - name: Đóng gói trên Windows
+      if: matrix.os == 'windows-latest'
+      run: pyinstaller --onedir --windowed --add-data "your_video.mp4;." --add-data "your_music.mp3;." main.py
+
+    - name: Đóng gói trên Mac và Linux
+      if: matrix.os != 'windows-latest'
+      run: pyinstaller --onedir --windowed --add-data "your_video.mp4:." --add-data "your_music.mp3:." main.py
+
+    - name: Thu gom và nén file kết quả (Artifacts)
+      uses: actions/upload-artifact@v4
+      with:
+        name: game-for-${{ matrix.os }}
+        path: dist/
