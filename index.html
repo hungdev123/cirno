@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Cirno</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+    <div id="snow-container"></div>
+
+    <div id="cirno-container">
+        <img id="cirno" src="resources/cirno.png" alt="cirno">
+    </div>
+
+    <audio id="baka-sound" src="resources/baka.mp3" preload="auto"></audio>
+
+    <div id="music-player">
+        <button id="music-toggle" type="button" aria-label="Play music">
+            ▶️
+        </button>
+
+        <div class="music-info">
+            <span id="music-status">Scarlet Police Getto Patrol 24 hour</span>
+            <input
+                id="music-volume"
+                type="range"
+                min="0"
+                max="1"
+                step="0.05"
+                value="0.5"
+                aria-label="Volume"
+            />
+        </div>
+    </div>
+
+    <audio id="bg-music" src="resources/music.mp3" loop></audio>
+
+    <script src="script.js"></script>
+</body>
+</html>
